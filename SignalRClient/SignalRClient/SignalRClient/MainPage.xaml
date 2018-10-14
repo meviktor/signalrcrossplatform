@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SignalRClient"
+             x:Class="SignalRClient.MainPage">
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Text="First Name" VerticalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Last Name" VerticalOptions="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Age" VerticalOptions="Center"/>
+            <Label Grid.Row="3" Grid.Column="0" Text="Gender" VerticalOptions="Center"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Married" VerticalOptions="Center"/>
+            
+            <Entry Grid.Row="0" Grid.Column="1" x:Name="firstNameEntry"/>
+            <Entry Grid.Row="1" Grid.Column="1" x:Name="lastNameEntry"/>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" x:Name="ageLabel" VerticalOptions="Center"/>
+                <Stepper Grid.Column="1" x:Name="ageStepper" Minimum="0" Maximum="99" Value="18" ValueChanged="ageStepper_ValueChanged"/>
+            </Grid>
+            <Picker Grid.Row="3" Grid.Column="1" x:Name="genderPicker"/>
+            <Picker Grid.Row="4" Grid.Column="1" x:Name="marriedPicker"/>
+
+            <Button Grid.RowSpan="2" Grid.Column="2" x:Name="sendButton" Text="Send" Clicked="sendButton_Clicked"/>
+            <Label Grid.Row="3" Grid.Column="2" Text="Your client id:"/>
+            <Label Grid.Row="4" Grid.Column="2" x:Name="clientIdLabel"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="deserializedPersonListView" Grid.Column="1" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="First Name:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding FirstName}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Last Name:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Age:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Age}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Gender:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Gender}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="4" Grid.Column="0" Text="Married:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding IsMarried}" VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Grid.Row="5" Grid.Column="0" Text="Sent from client:" VerticalOptions="Center"/>
+                                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding SentFromClient}" VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="rawJsonPersonListView" Grid.Column="0" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{x:Binding}" LineBreakMode="CharacterWrap"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="2">
+            <ListView x:Name="connectionLogsListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{x:Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+
+</ContentPage>
